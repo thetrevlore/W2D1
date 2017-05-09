@@ -12,13 +12,12 @@ class Board
   def move_piece(start_pos, end_pos)
     if self[start_pos].is_a? NullPiece
       raise NoPieceAtPos
-    elsif !self[end_pos].is_a? NullPiece
-      raise InvalidEndPos
-    else
+    elsif self[start_pos].moves(start_pos).include? end_pos
       self[end_pos] = self[start_pos]
       self[start_pos] = NullPiece.new
+    else 
+      raise InvalidEndPos
     end
-
   end
 
   def [](pos)
@@ -39,15 +38,15 @@ class Board
   protected
   def make_starting_grid
     (0..1).each do |i|
-      self.grid[i].map! { |space| space = Piece.new }
+      self.grid[i].map! { |space| space = Queen.new("Q", self, :black) }
     end
 
     (6..7).each do |i|
-      self.grid[i].map! { |space| space = Piece.new }
+      self.grid[i].map! { |space| space = NullPiece.new }
     end
 
     (2..5).each do |i|
-      self.grid[i].map! { |space| space = NullPiece.new }
+      self.grid[i].map! { |space| space = Bishop.new("B", self, :white) }
     end
   end
 end

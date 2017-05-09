@@ -99,8 +99,7 @@ class Cursor
     new_pos = [new_row, new_col]
 
     if board.in_bounds?(new_pos)
-      self.cursor_pos[0] += diff[0]
-      self.cursor_pos[1] += diff[1]
+      self.cursor_pos = new_pos
     else
       raise OutOfBounds
     end

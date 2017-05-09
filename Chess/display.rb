@@ -17,15 +17,15 @@ class Display
       (0..7).each do |col|
         if (row.even? && col.even?) || (row.odd? && col.odd?)
           if @cursor.cursor_pos == [row, col]
-            print "#{@board[[row,col]].name.colorize(background: :yellow)}"
+            print " #{@board[[row,col]].name} ".colorize(background: :yellow)
           else
-            print @board[[row,col]].name.colorize(color: :light_blue, background: :black)
+            print " #{@board[[row,col]].name} ".colorize(color: :light_blue, background: :black)
           end
         else
           if @cursor.cursor_pos == [row, col]
-            print "#{@board[[row,col]].name.colorize(background: :yellow)}"
+            print " #{@board[[row,col]].name} ".colorize(background: :yellow)
           else
-            print @board[[row,col]].name.colorize(color: :light_blue, background: :white)
+            print " #{@board[[row,col]].name} ".colorize(color: :light_blue, background: :white)
           end
         end
       end
