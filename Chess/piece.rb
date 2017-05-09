@@ -1,13 +1,16 @@
 class Piece
-  def initialize(name = "p")
-    @name = name
+  attr_accessor :name
 
+  def initialize(name = " p ")
+    @name = name
   end
 end
 
 class NullPiece < Piece
+  def initialize
+  end
 
-  def initialize(name = "n")
-    @name = name
+  def name
+    "   "
   end
 end

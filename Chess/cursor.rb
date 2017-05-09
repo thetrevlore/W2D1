@@ -94,13 +94,13 @@ class Cursor
   end
 
   def update_pos(diff)
-    new_row = current_pos[0] + diff[0]
-    new_col = current_pos[1] + diff[1]
+    new_row = cursor_pos[0] + diff[0]
+    new_col = cursor_pos[1] + diff[1]
     new_pos = [new_row, new_col]
 
     if board.in_bounds?(new_pos)
-      self.current_pos[0] += diff[0]
-      self.current_pos[1] += diff[1]
+      self.cursor_pos[0] += diff[0]
+      self.cursor_pos[1] += diff[1]
     else
       raise OutOfBounds
     end
