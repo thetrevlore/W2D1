@@ -56,7 +56,22 @@ class Piece
   end
 end
 
+class King < Piece
+  include SteppingPiece
 
+  def move_diffs
+    diffs = [
+      [0, 1],
+      [0, -1],
+      [1, 0],
+      [1, -1],
+      [1, 1],
+      [-1, -1],
+      [-1, 0],
+      [-1, 1]
+    ]
+  end
+end
 
 class Knight < Piece
   include SteppingPiece
@@ -71,23 +86,6 @@ class Knight < Piece
       [2, -1],
       [2, 1],
       [-2, 1]
-    ]
-  end
-end
-
-class King < Piece
-  include SteppingPiece
-
-  def move_diffs
-    diffs = [
-      [0, 1],
-      [0, -1],
-      [1, 0],
-      [1, -1],
-      [1, 1],
-      [-1, -1],
-      [-1, 0],
-      [-1, 1]
     ]
   end
 end
@@ -109,6 +107,19 @@ class Queen < Piece
   end
 end
 
+class Bishop < Piece
+  include SlidingPiece
+
+  def move_dirs
+    dirs = [
+      [1, 1],
+      [1, -1],
+      [-1, 1],
+      [-1, -1]
+    ]
+  end
+end
+
 class Rook < Piece
   include SlidingPiece
 
@@ -122,16 +133,23 @@ class Rook < Piece
   end
 end
 
-class Bishop < Piece
-  include SlidingPiece
+class Pawn < Piece
+  def move(start_pos)
+    poss_moves = []
 
-  def move_dirs
-    dirs = [
-      [1, 1],
-      [1, -1],
-      [-1, 1],
-      [-1, -1]
-    ]
+    if @board[start_pos].color == :black
+      poss_moves << [start_pos[0] + 1, start_pos[1]]
+    else
+      poss_moves << [start_pos[0] - 1, start_pos[1]]
+    end
+
+    if start_pos.first == 1
+      poss_moves << [start_pos[0] + 2, start_pos[1]]
+    elsif start_pos.first == 6
+      poss_moves << [start_pos[0] - 2, start_pos[1]]
+    end
+
+    poss_moves
   end
 end
 

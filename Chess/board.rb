@@ -15,7 +15,7 @@ class Board
     elsif self[start_pos].moves(start_pos).include? end_pos
       self[end_pos] = self[start_pos]
       self[start_pos] = NullPiece.new
-    else 
+    else
       raise InvalidEndPos
     end
   end
@@ -37,16 +37,34 @@ class Board
 
   protected
   def make_starting_grid
-    (0..1).each do |i|
-      self.grid[i].map! { |space| space = Queen.new("Q", self, :black) }
-    end
+    self.grid[1].map! { |space| space = Pawn.new("P", self, :black)}
+    self.grid[6].map! { |space| space = Pawn.new("P", self, :white)}
 
-    (6..7).each do |i|
-      self.grid[i].map! { |space| space = NullPiece.new }
-    end
+    self[[0, 0]] = Rook.new("R", self, :black)
+    self[[0, 7]] = Rook.new("R", self, :black)
+    self[[7, 0]] = Rook.new("R", self, :white)
+    self[[7, 7]] = Rook.new("R", self, :white)
+
+    self[[0, 1]] = Knight.new("H", self, :black)
+    self[[0, 6]] = Knight.new("H", self, :black)
+    self[[7, 1]] = Knight.new("H", self, :white)
+    self[[7, 6]] = Knight.new("H", self, :white)
+
+    self[[0, 2]] = Bishop.new("B", self, :black)
+    self[[0, 5]] = Bishop.new("B", self, :black)
+    self[[7, 2]] = Bishop.new("B", self, :white)
+    self[[7, 5]] = Bishop.new("B", self, :white)
+
+    self[[0, 3]] = Queen.new("Q", self, :black)
+    self[[7, 3]] = Queen.new("Q", self, :white)
+
+    self[[0, 4]] = King.new("K", self, :black)
+    self[[7, 4]] = King.new("K", self, :white)
 
     (2..5).each do |i|
-      self.grid[i].map! { |space| space = Bishop.new("B", self, :white) }
+      self.grid[i].map! do |space|
+        space = NullPiece.new
+      end
     end
   end
 end
